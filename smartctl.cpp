@@ -1074,6 +1074,24 @@ static int parse_options(int argc, char** argv, const char * & type,
           else if (!get && !strcmp(optarg, "security-freeze")) {
             ataopts.set_security_freeze = true;
           }
+          else if (!get && !strcmp(optarg, "security-setpass")) {
+            ataopts.set_security_setpass = true;
+          }
+          else if (!get && !strcmp(optarg, "security-disable")) {
+            ataopts.set_security_disable = true;
+          }
+          else if (!get && !strcmp(optarg, "security-erase")) {
+            ataopts.set_security_erase = true;
+          }
+          else if (!get && !strcmp(optarg, "security-eeprom-setpass")) {
+            ataopts.set_security_eeprom_setpass = true;
+          }
+          else if (!get && !strcmp(optarg, "security-eeprom-disable")) {
+            ataopts.set_security_eeprom_disable = true;
+          }
+          else if (!get && !strcmp(optarg, "security-eeprom-unlock")) {
+            ataopts.set_security_eeprom_unlock = true;
+          }
           else if (!get && !strcmp(optarg, "standby,now")) {
               ataopts.set_standby_now = true;
           }

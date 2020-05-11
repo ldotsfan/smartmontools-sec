@@ -102,7 +102,7 @@ typedef struct _EEPROMDATA {
    BYTE		UNKNOWN6[64];				// 0xC0 - 0xFF Unknown Codes / History ?
 } EEPROMDATA, *LPEEPROMDATA;
 
-static EEPROMDATA eeprom;
+// static EEPROMDATA eeprom;
 
 typedef struct _XBOXDATA {
 	int          YResolution;

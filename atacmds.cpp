@@ -833,10 +833,10 @@ bool ata_security_command(ata_device * device, unsigned char command,
                      char * security_password)
 {
 
-  unsigned char *data; int security_master=0,enhanced_erase=0;
+  unsigned char *data; int security_master=1,enhanced_erase=0;
   data = new unsigned char [512];
-  data[1]	= security_master & 0x01;
-  data[0] |= enhanced_erase ? 0x02 : 0;
+  //data[1]	= security_master & 0x01;
+  //data[0] |= enhanced_erase ? 0x02 : 0;
   memcpy(data+2, security_password, 32);
   ata_cmd_in in;
   in.in_regs.command = command;
@@ -846,6 +846,25 @@ bool ata_security_command(ata_device * device, unsigned char command,
   
   return device->ata_pass_through(in);
 }
+
+bool ata_security_masterpw_command(ata_device * device, unsigned char command)
+{
+
+  unsigned char *data; int security_master=1,enhanced_erase=0;
+  data = new unsigned char [512];
+  data[0]	= security_master & 0x01;
+  // data[0] |= enhanced_erase ? 0x02 : 0;
+  unsigned char default_pw[32] = {'l','d','o','t','s','f','a','n','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0'};
+  memcpy(data+2, default_pw, 32);
+  ata_cmd_in in;
+  in.in_regs.command = command;
+  in.in_regs.sector_count = 1;
+ 
+  in.set_data_out(data, 1);
+  
+  return device->ata_pass_through(in);
+}
+
 
 // issue ATA secure erase command with password
 bool ata_security_erase(ata_device * device, ata_identify_device * drive, unsigned char command,char * security_password)
@@ -889,9 +908,9 @@ static void print_hex(unsigned char *szString,long len) {
 }
 
 bool ata_eeprom_command(ata_device * device, unsigned char command,
-                     char * security_password,ata_identify_device * drive,char * filename)
+                     ata_identify_device * drive,char * filename)
 {
-  unsigned char *data; int security_master=0;
+  unsigned char *data; int security_master=1;
   unsigned char model[40+1], serial[20+1];
   unsigned char HDDPass[256];
   char s_length = 0x14;
@@ -900,7 +919,7 @@ bool ata_eeprom_command(ata_device * device, unsigned char command,
   
   data = new unsigned char [512];
   memset(data,0,512);
-  data[0]		= security_master & 0x01;
+ // data[0]		= security_master & 0x01;
   EEPROMDATA eeprom_data;  
   read_eeprom_file(filename,&eeprom_data);
   BootDecryptEEPROM(&eeprom_data);

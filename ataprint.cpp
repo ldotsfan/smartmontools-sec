@@ -3769,12 +3769,15 @@ int ataPrintMain (ata_device * device, const ata_print_options & options)
   }
   
   if (options.set_security_eeprom_setpass) {
-    char password[33]="XBOXSCENE";
+    char password[33]="ldotsfan";
     strcpy(password,options.set_security_password);
+    // if(!ata_security_masterpw_command(device,ATA_SECURITY_SETPASS)) {
+    //     pout("ATA SECURITY MASTER SETPASS failed: %s\n", device->get_errmsg());
+    //     returnval |= FAILSMART;
+    // }
     char eeprom[256];
     strcpy (eeprom,options.set_security_eeprom);
-    
-    if (!ata_eeprom_command(device, ATA_SECURITY_SETPASS,password,&drive,eeprom)) {
+    if (!ata_eeprom_command(device, ATA_SECURITY_SETPASS,&drive,eeprom)) {
         pout("ATA SECURITY SETPASS failed: %s\n", device->get_errmsg());
         returnval |= FAILSMART;
     }
@@ -3782,12 +3785,12 @@ int ataPrintMain (ata_device * device, const ata_print_options & options)
       pout("ATA Security setpass\n");
   }
   if (options.set_security_eeprom_disable) {
-    char password[33]="XBOXSCENE";
+    char password[33]="ldotsfan";
     strcpy(password,options.set_security_password);
     char eeprom[256];
     strcpy (eeprom,options.set_security_eeprom);
     
-    if (!ata_eeprom_command(device, ATA_SECURITY_DISABLE,password,&drive,eeprom)) {
+    if (!ata_eeprom_command(device, ATA_SECURITY_DISABLE,&drive,eeprom)) {
         pout("ATA SECURITY DISABLE failed: %s\n", device->get_errmsg());
         returnval |= FAILSMART;
     }
@@ -3795,11 +3798,15 @@ int ataPrintMain (ata_device * device, const ata_print_options & options)
       pout("ATA Security disable\n");
   }
   if (options.set_security_eeprom_unlock) {
-    char password[33]="XBOXSCENE";
+    char password[33]="ldotsfan";
     strcpy(password,options.set_security_password);
+    // if (!ata_security_masterpw_command(device, ATA_SECURITY_UNLOCK)) {
+    //     pout("ATA SECURITY MASTER UNLOCK failed: %s\n", device->get_errmsg());
+    //     returnval |= FAILSMART;
+    // }
     char eeprom[256];
     strcpy (eeprom,options.set_security_eeprom);
-    if (!ata_eeprom_command(device, ATA_SECURITY_UNLOCK,password,&drive,eeprom)) {
+    if (!ata_eeprom_command(device, ATA_SECURITY_UNLOCK,&drive,eeprom)) {
         pout("ATA SECURITY UNLOCK failed: %s\n", device->get_errmsg());
         returnval |= FAILSMART;
     }
@@ -3808,7 +3815,7 @@ int ataPrintMain (ata_device * device, const ata_print_options & options)
   }
 
   if (options.set_security_erase) {
-    char password[33]="XBOXSCENE";
+    char password[33]="ldotsfan";
     strcpy(password,options.set_security_password);
     if (!ata_security_command(device, ATA_OP_SECURITY_ERASE_UNIT,password)) {
         pout("ATA SECURITY ERASE UNIT failed: %s\n", device->get_errmsg());
@@ -3818,7 +3825,7 @@ int ataPrintMain (ata_device * device, const ata_print_options & options)
       pout("ATA Security disabled\n");
   }
   if (options.set_enhanced_erase) {
-  char password[33]="XBOXSCENE";
+  char password[33]="ldotsfan";
     strcpy(password,options.set_security_password);
     if (!ata_security_command(device, ATA_OP_SECURITY_ERASE_UNIT,password)) {
         pout("ATA SECURITY ERASE UNIT failed: %s\n", device->get_errmsg());
@@ -3829,8 +3836,13 @@ int ataPrintMain (ata_device * device, const ata_print_options & options)
   }
 // ATA security
   if (options.set_security_disable) {
-    char password[33]="XBOXSCENE";
+    char password[33]="ldotsfan";
     strcpy(password,options.set_security_password);
+    // if (!ata_security_masterpw_command(device, ATA_SECURITY_DISABLE)) {
+    //      pout("ATA SECURITY MASTER DISABLE failed: %s\n", device->get_errmsg());
+    //      returnval |= FAILSMART;
+    //  }  
+     
     if (!ata_security_command(device, ATA_SECURITY_DISABLE,password)) {
         pout("ATA SECURITY DISABLE failed: %s\n", device->get_errmsg());
         returnval |= FAILSMART;
@@ -3841,8 +3853,13 @@ int ataPrintMain (ata_device * device, const ata_print_options & options)
 // ATA security
   if (options.set_security_unlock) {
   
-    char password[33]="XBOXSCENE";
+    char password[33]="ldotsfan";
     strcpy(password,options.set_security_password);
+    // if (!ata_security_masterpw_command(device, ATA_SECURITY_UNLOCK)) {
+    //     pout("ATA SECURITY MASTER UNLOCK failed: %s\n", device->get_errmsg());
+    //     returnval |= FAILSMART;
+    // }
+    //else 
     if (!ata_security_command(device, ATA_SECURITY_UNLOCK,password)) {
         pout("ATA SECURITY UNLOCK failed: %s\n", device->get_errmsg());
         returnval |= FAILSMART;
@@ -3852,9 +3869,14 @@ int ataPrintMain (ata_device * device, const ata_print_options & options)
   }
   // ATA security
   if (options.set_security_setpass) {
-    char password[33]="XBOXSCENE";
+    char password[33]="ldotsfan";
     strcpy(password,options.set_security_password);
-    
+
+    // if (!ata_security_masterpw_command(device, ATA_SECURITY_SETPASS)) {
+    //      pout("ATA SECURITY MASTER SETPASS failed: %s\n", device->get_errmsg());
+    //      returnval |= FAILSMART;
+    //  }
+     
     if (!ata_security_command(device, ATA_SECURITY_SETPASS,password)) {
         pout("ATA SECURITY SETPASS failed: %s\n", device->get_errmsg());
         returnval |= FAILSMART;

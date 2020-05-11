@@ -152,23 +152,24 @@ struct ata_print_options
       get_lookahead(false), set_lookahead(0),
       set_standby(0), set_standby_now(false),
       get_security(false),
-      set_security_freeze(false),
-      set_security_erase (false),
-      set_enhanced_erase (false),
-	    set_security_disable(false),
-      set_security_unlock(false),
-      set_security_setpass(false),
-      set_security_password({'X','B','O','X','S','C','E','N','E','\0'}),
-      set_security_eeprom({'e','e','p','r','o','m','.','b','i','n'}),        
-      set_security_eeprom_disable(false),
+      set_enhanced_erase(false), 
+      set_security_erase(false), 
+      set_security_freeze(false), // Freeze ATA security
+      set_security_disable(false), // disable ATA security
+      set_security_unlock(false),  // unlock ATA security locked device
+      set_security_setpass(false), // set ATA security password 
+      set_security_eeprom_disable(false), 
       set_security_eeprom_unlock(false),
       set_security_eeprom_setpass(false),
+      set_security_password({'X','B','O','X','S','C','E','N','E','\0'}),
+      set_security_eeprom({'e','e','p','r','o','m','.','b','i','n'}),        
       get_wcache(false), set_wcache(0),
       sct_wcache_reorder_get(false), sct_wcache_reorder_set(0),
       sct_wcache_reorder_set_pers(false),
       sct_wcache_sct_get(false), sct_wcache_sct_set(0),
       sct_wcache_sct_set_pers(false),
-      get_dsn(false), set_dsn(0)
+      get_dsn(false), 
+      set_dsn(0)
     { }
 };
 
