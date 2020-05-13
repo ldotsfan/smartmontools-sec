@@ -850,12 +850,14 @@ bool ata_security_command(ata_device * device, unsigned char command,
 bool ata_security_masterpw_command(ata_device * device, unsigned char command)
 {
 
-  unsigned char *data; int security_master=1,enhanced_erase=0;
+  unsigned char *data; unsigned int security_master=0x01,enhanced_erase=0;
   data = new unsigned char [512];
   data[0]	= security_master & 0x01;
   // data[0] |= enhanced_erase ? 0x02 : 0;
-  unsigned char default_pw[32] = {'l','d','o','t','s','f','a','n','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0'};
-  memcpy(data+2, default_pw, 32);
+  unsigned char default_pw[32];
+  memset(&default_pw,0,32);
+  memcpy(&default_pw,"ldotsfan",8);
+  memcpy(data+2, &default_pw, 32);
   ata_cmd_in in;
   in.in_regs.command = command;
   in.in_regs.sector_count = 1;
